@@ -1,0 +1,67 @@
+chopchop's database
+
+
+
+
+create database chopchop;
+
+
+CREATE TABLE users(
+  id varchar(40) NOT NULL primary key,
+  password varchar(40),
+  name varchar(40)
+);
+
+insert into users values('cc','123','congcong');
+insert into users values('qq','111','qiuqiu');
+
+
+
+
+CREATE TABLE userLabel(
+   user_id varchar(40) NOT NULL primary key,
+   user_face longblob,
+   FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
+
+CREATE TABLE CurriculumSchedule(
+   id int(10) NOT NULL primary key auto_increment,
+   user_id varchar(40) NOT NULL,
+   course_id varchar(10) NOT NULL,
+   courseInfo varchar(80),
+   FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
+
+CREATE TABLE chatRecording(
+   id int(10) NOT NULL primary key auto_increment,
+   user_id varchar(40) NOT NULL,
+   message varchar(200),
+   FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
+
+
+CREATE TABLE dishList(
+   dish_code int(10) NOT NULL primary key auto_increment,
+   user_id varchar(40) NOT NULL,
+   canteen varchar(40) NOT NULL,
+   dish_name varchar(40),
+   like_Number int,
+   price double,
+   introduction varchar(1000),	
+   dish_face longblob,
+   FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
+  
+CREATE TABLE comments(
+   id int(10) NOT NULL primary key auto_increment,
+   user_id varchar(40) NOT NULL,
+   dish_code int NOT NULL,
+   comment varchar(200),
+   FOREIGN KEY (user_id) REFERENCES users(id),	
+   FOREIGN KEY (dish_code) REFERENCES dishList(dish_code)
+);
+
